@@ -34,7 +34,7 @@ h3 {
 
     &:before {
         content: "";
-        opacity: 0.75;
+        opacity: .65;
         background-image: url('src/assets/images/bg-0.jpeg');
         background-position: 50% 50%;
         background-size: cover;
@@ -69,11 +69,13 @@ h3 {
 }
 
 main {
+    position: relative;
     z-index: 1;
 }
 .main-section {
     background-color: var(--bg-color);
     margin-bottom: 75px;
+    border-radius: 10px;
 }
 
 .tile {
@@ -102,20 +104,26 @@ main {
     width: 100%;
     color: white;
     text-shadow: 1px 1px 2px black;
+}
 
-    &.about-me,
-    &.contact-me {
+.contact-me,
+.resume {
+    .overlay {
+        top: 165px;
+    }
+}
+
+.about-me,
+.contact-me {
+    .overlay {
         text-align: start;
     }
+}
 
-    &.portfolio,
-    &.resume {
+.portfolio,
+.resume {
+    .overlay {
         text-align: end;
-    }
-
-    &.contact-me,
-    &.resume {
-        top: 175px;
     }
 }
 
