@@ -1,17 +1,17 @@
 :root {
-    --bg-color: #F9F9F9;
+    --bg-color: #f9f9f9;
     --font-color: grey;
-  
+
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-body { 
+body {
     background-color: var(--bg-color) !important;
 }
-  
+
 footer {
     position: fixed;
     bottom: 0;
@@ -25,31 +25,16 @@ h3 {
 }
 
 .container-fluid {
-    max-width: 940px;   
+    max-width: 940px;
 }
 
 .navbar {
     position: relative;
     z-index: 1;
-
-    &:before {
-        content: "";
-        opacity: .65;
-        background-image: url('src/assets/images/bg-0.jpeg');
-        background-position: 50% 50%;
-        background-size: cover;
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        bottom: 0px;
-        left: 0px;
-        z-index: -1;
-        padding-bottom: 400px;
-    }
 }
 
 .full-name {
-    font-size: 2rem !important;
+    font-size: 2.5rem !important;
 }
 
 .nav-item {
@@ -64,7 +49,7 @@ h3 {
     text-align: center;
     padding-top: 75px;
     padding-bottom: 125px;
-    font-size: 2.5rem;
+    font-size: 4rem;
     z-index: 1;
 }
 
