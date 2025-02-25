@@ -9,10 +9,10 @@ const Header = () => {
     return (
         <header className="w-sm md:w-2xl lg:w-3xl">
             <nav className="flex justify-between items-center">
-                <Link to="/" className="w-1/3 ml-0 font-bold text-2xl">
+                <Link to="/" className="ml-2 font-bold text-2xl text-nowrap">
                     Joon Park
                 </Link>
-                <ul className="w-5/6 flex flex-wrap justify-end ml-auto mt-0 text-right">
+                <ul className="flex flex-wrap justify-end ml-auto mt-0 text-right">
                     <NavItem
                         to="/"
                         label="Home"

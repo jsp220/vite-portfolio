@@ -11,7 +11,7 @@ const NavItem = ({ to, label, isActive }: NavItemProps) => (
         <Link
             to={to}
             className={`px-3 py-2 hover:text-(--hover-color-light) dark:hover:text-(--hover-color-dark) ${
-                isActive ? "font-extrabold" : "font-medium"
+                isActive ? "font-bold" : ""
             }`}
         >
             {label}
