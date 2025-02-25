@@ -1,25 +1,21 @@
 import { Link, useLocation } from "react-router-dom";
 import NavItem from "./NavItem";
+import { TextEffect } from "./ui/text-effect";
 
 const Header = () => {
     const location = useLocation();
     const currentPage =
-        location.pathname === "/" ? "home" : location.pathname.slice(1);
+        location.pathname === "/" ? "about" : location.pathname.slice(1);
 
     return (
-        <header className="w-sm md:w-2xl lg:w-3xl">
-            <nav className="flex justify-between items-center">
+        <header className="pb-2 mb-2 border-b-1 border-gray-600">
+            <nav className="flex justify-between items-end">
                 <Link to="/" className="ml-2 font-bold text-2xl text-nowrap">
                     Joon Park
                 </Link>
-                <ul className="flex flex-wrap justify-end ml-auto mt-0 text-right">
+                <ul className="w-1/2 flex flex-wrap justify-end ml-auto mt-0 text-right">
                     <NavItem
                         to="/"
-                        label="Home"
-                        isActive={currentPage === "home"}
-                    />
-                    <NavItem
-                        to="/about"
                         label="About"
                         isActive={currentPage === "about"}
                     />
