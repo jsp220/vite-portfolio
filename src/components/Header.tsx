@@ -1,7 +1,45 @@
+import { Link, useLocation } from "react-router-dom";
+import NavItem from "./NavItem";
+
 const Header = () => {
+    const location = useLocation();
+    const currentPage =
+        location.pathname === "/" ? "home" : location.pathname.slice(1);
+
     return (
-        <header className="bg-blue-400 text-white text-center p-4">
-            <h1 className="text-3xl font-bold">Header</h1>
+        <header className="w-sm md:w-2xl lg:w-3xl">
+            <nav className="flex justify-between items-center">
+                <Link to="/" className="w-1/3 ml-0 font-bold text-2xl">
+                    Joon Park
+                </Link>
+                <ul className="w-5/6 flex flex-wrap justify-end ml-auto mt-0 text-right">
+                    <NavItem
+                        to="/"
+                        label="Home"
+                        isActive={currentPage === "home"}
+                    />
+                    <NavItem
+                        to="/about"
+                        label="About"
+                        isActive={currentPage === "about"}
+                    />
+                    <NavItem
+                        to="/portfolio"
+                        label="Portfolio"
+                        isActive={currentPage === "portfolio"}
+                    />
+                    <NavItem
+                        to="/contact"
+                        label="Contact"
+                        isActive={currentPage === "contact"}
+                    />
+                    <NavItem
+                        to="/resume"
+                        label="Resume"
+                        isActive={currentPage === "resume"}
+                    />
+                </ul>
+            </nav>
         </header>
     );
 };
