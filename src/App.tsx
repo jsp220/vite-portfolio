@@ -1,8 +1,9 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import About from "./components/pages/About";
+import { About, Contact, Projects, Resume } from "./components/pages/index";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import PageWrapper from "./components/PageWrapper";
 
 const App = () => {
     return (
@@ -11,7 +12,38 @@ const App = () => {
             <main className="flex-grow overflow-y-auto">
                 <section className="w-full px-2 pt-5">
                     <Routes>
-                        <Route path="/" element={<About />} />
+                        <Route
+                            path="/"
+                            element={
+                                <PageWrapper>
+                                    <About />
+                                </PageWrapper>
+                            }
+                        />
+                        <Route
+                            path="/projects"
+                            element={
+                                <PageWrapper>
+                                    <Projects />
+                                </PageWrapper>
+                            }
+                        />
+                        <Route
+                            path="/contact"
+                            element={
+                                <PageWrapper>
+                                    <Contact />
+                                </PageWrapper>
+                            }
+                        />
+                        <Route
+                            path="/resume"
+                            element={
+                                <PageWrapper>
+                                    <Resume />
+                                </PageWrapper>
+                            }
+                        />
                     </Routes>
                 </section>
             </main>

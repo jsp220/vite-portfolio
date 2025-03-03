@@ -20,9 +20,10 @@ const Header = () => {
                         isActive={currentPage === "about"}
                     />
                     <NavItem
-                        to="/portfolio"
-                        label="Portfolio"
-                        isActive={currentPage === "portfolio"}
+                        to="/projects"
+                        label="Projects"
+                        isActive={currentPage === "projects"}
+                        hidden={true}
                     />
                     <NavItem
                         to="/contact"

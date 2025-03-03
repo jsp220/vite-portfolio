@@ -5,10 +5,11 @@ interface NavItemProps {
     to: string;
     label: string;
     isActive: boolean;
+    hidden?: boolean;
 }
 
-const NavItem = ({ to, label, isActive }: NavItemProps) => (
-    <li>
+const NavItem = ({ to, label, isActive, hidden = false }: NavItemProps) => (
+    <li hidden={hidden}>
         <Link to={to} className="w-full">
             <TextEffect
                 variants={{
