@@ -7,9 +7,9 @@ import PageWrapper from "./components/PageWrapper";
 
 const App = () => {
     return (
-        <div className="flex flex-col w-sm h-[calc(100vh-3rem)] md:w-2xl lg:w-3xl">
+        <div className="flex flex-col w-xs xs:w-sm md:w-2xl">
             <Header />
-            <main className="flex-grow overflow-y-auto">
+            <main className="flex overflow-y-auto h-[calc(85vh)]">
                 <section className="w-full px-2 pt-5">
                     <Routes>
                         <Route
