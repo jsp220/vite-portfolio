@@ -30,7 +30,7 @@ const About = () => (
             .
         </p>
         <img
-            src="/src/assets/images/me.jpg"
+            src="./src/assets/images/me.jpg"
             alt="picture of Joon Park"
             className="w-50 rounded"
         />
