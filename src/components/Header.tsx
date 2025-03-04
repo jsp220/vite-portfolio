@@ -3,7 +3,6 @@ import NavItem from "./NavItem";
 
 const Header = () => {
     const location = useLocation();
-    console.log(location.pathname);
     const currentPage =
         location.pathname === "/" ? "about" : location.pathname.slice(1);
 

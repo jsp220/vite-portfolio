@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Me from "/assets/images/me.jpg";
 
 const About = () => (
     <>
@@ -29,11 +30,7 @@ const About = () => (
             </span>
             .
         </p>
-        <img
-            src="./src/assets/images/me.jpg"
-            alt="picture of Joon Park"
-            className="w-50 rounded"
-        />
+        <img src={Me} alt="picture of Joon Park" className="w-50 rounded" />
     </>
 );
 

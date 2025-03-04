@@ -1,4 +1,4 @@
-import ResumeFile from "/src/assets/resume/resume.pdf";
+import ResumeFile from "/assets/resume/resume.pdf";
 
 const Resume = () => {
     return (
