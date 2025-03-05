@@ -81,7 +81,7 @@ const Contact = () => {
                     />
                     <p
                         hidden={!isNameInvalid}
-                        className="text-red-700 dark:text-red-500 text-sm"
+                        className="text-red-700 dark:text-red-500 text-sm pt-0.5"
                     >
                         Please enter a name.
                     </p>
@@ -102,7 +102,7 @@ const Contact = () => {
                     />
                     <p
                         hidden={!isEmailInvalid}
-                        className="text-red-700 dark:text-red-500 text-sm"
+                        className="text-red-700 dark:text-red-500 text-sm pt-0.5"
                     >
                         Please enter a valid email.
                     </p>
@@ -121,7 +121,7 @@ const Contact = () => {
                     />
                     <p
                         hidden={!isMessageInvalid}
-                        className="text-red-700 dark:text-red-500 text-sm"
+                        className="text-red-700 dark:text-red-500 text-sm pt-0.5"
                     >
                         Please enter a message.
                     </p>
@@ -129,7 +129,7 @@ const Contact = () => {
                 <div className="pt-2">
                     <button
                         type="submit"
-                        onClick={(event) => handleFormSubmit(event)}
+                        onClick={(event) => console.log(event)}
                         className="bg-white dark:bg-gray-700 h-auto rounded-[calc(8px)] border-1 border-transparent py-1 px-2"
                     >
                         Submit
