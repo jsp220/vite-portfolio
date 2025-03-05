@@ -8,6 +8,7 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 1rem;
+    --hover-color: oklch(0.644 0.1925 277.25);
 }
 
 .dark {
@@ -82,7 +83,10 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
+
     --breakpoint-xs: 30rem;
+    --spacing-4xs: 150px;
+    --color-hover-blue: var(--hover-color);
 }
 
 @layer base {
