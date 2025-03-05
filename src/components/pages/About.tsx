@@ -5,7 +5,7 @@ const About = () => (
     <>
         <h1 className="text-xl font-medium py-1">About me</h1>
         <p className="pb-2">
-            Joon is a professional full stack engineer based in San Diego, CA.
+            Joon is a full stack engineer based in San Diego, CA.
         </p>
         <p className="pb-2">
             He has two years of industry experience building front end features

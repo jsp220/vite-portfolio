@@ -9,8 +9,8 @@ const App = () => {
     return (
         <div className="flex flex-col w-xs xs:w-sm md:w-2xl">
             <Header />
-            <main className="flex overflow-y-auto h-[calc(85vh)]">
-                <section className="w-full px-2 pt-5">
+            <main className="flex overflow-y-auto h-[calc(70vh)] md:h-[calc(85vh)]">
+                <section className="w-full px-2 pt-1">
                     <Routes>
                         <Route
                             path="/"

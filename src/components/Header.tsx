@@ -9,7 +9,10 @@ const Header = () => {
     return (
         <header className="pb-2 mb-2 border-b-1 border-gray-600">
             <nav className="flex justify-between items-end">
-                <Link to="/" className="ml-2 font-bold text-2xl text-nowrap">
+                <Link
+                    to="/"
+                    className="ml-2 font-bold text-xl md:text-2xl text-nowrap"
+                >
                     Joon Park
                 </Link>
                 <ul className="flex flex-wrap justify-end ml-auto mt-0 text-right">
