@@ -6,6 +6,12 @@ enum InputName {
     Message = "message",
 }
 
+const validateEmail = (email: string): boolean => {
+    const emailRegex =
+        /^[a-zA-Z0-9](?!.*\.\.)[a-zA-Z0-9._-]*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*\.[a-zA-Z]{2,12}$/;
+    return emailRegex.test(email);
+};
+
 const Contact = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -43,11 +49,7 @@ const Contact = () => {
 
         switch (name) {
             case InputName.Email: {
-                const isValidEmail = email.match(
-                    /^[a-zA-Z0-9][a-zA-Z0-9._-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,12}$/
-                );
-                if (!isValidEmail) setIsEmailInvalid(true);
-                else setIsEmailInvalid(false);
+                setIsEmailInvalid(!validateEmail(value));
                 break;
             }
             case InputName.Name:
@@ -61,10 +63,15 @@ const Contact = () => {
         }
     };
 
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        console.log(event.currentTarget);
+    };
+
     return (
         <div className="flex flex-col">
             <h1 className="text-xl font-medium py-1">Contact me</h1>
-            <form id="contact-form">
+            <form id="contact-form" onSubmit={handleSubmit}>
                 <div className="flex flex-col mb-1">
                     <label className="py-1" htmlFor="contact-name">
                         Name
@@ -129,7 +136,6 @@ const Contact = () => {
                 <div className="pt-2">
                     <button
                         type="submit"
-                        onClick={(event) => console.log(event)}
                         className="bg-white dark:bg-gray-700 h-auto rounded-[calc(8px)] border-1 border-transparent py-1 px-2"
                     >
                         Submit
