@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import { validateEmail } from "@/lib/utils";
+import React, { useEffect, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 enum InputName {
     Name = "name",
     Email = "email",
     Message = "message",
 }
-
-const validateEmail = (email: string): boolean => {
-    const emailRegex =
-        /^[a-zA-Z0-9](?!.*\.\.)[a-zA-Z0-9._-]*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*\.[a-zA-Z]{2,12}$/;
-    return emailRegex.test(email);
-};
 
 const Contact = () => {
     const [name, setName] = useState("");
@@ -19,6 +15,11 @@ const Contact = () => {
     const [isNameInvalid, setIsNameInvalid] = useState(false);
     const [isEmailInvalid, setIsEmailInvalid] = useState(false);
     const [isMessageInvalid, setIsMessageInvalid] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        setIsButtonDisabled(!name || !email || !message || isEmailInvalid);
+    }, [name, email, message, isEmailInvalid]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,15 +30,15 @@ const Contact = () => {
         switch (name) {
             case InputName.Name:
                 setName(value);
-                if (value) setIsNameInvalid(false);
+                setIsNameInvalid(!value);
                 break;
             case InputName.Email:
                 setEmail(value);
-                if (value) setIsEmailInvalid(false);
+                setIsEmailInvalid(!validateEmail(value));
                 break;
             case InputName.Message:
                 setMessage(value);
-                if (value) setIsMessageInvalid(false);
+                setIsMessageInvalid(!value);
                 break;
         }
     };
@@ -65,7 +66,38 @@ const Contact = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(event.currentTarget);
+        if (isNameInvalid || isEmailInvalid || isMessageInvalid) {
+            alert("Please fill out the form correctly.");
+        }
+
+        const templateParams = {
+            from_name: name,
+            reply_to: email,
+            message: message,
+        };
+
+        emailjs
+            .send(
+                "service_74i9fmx",
+                "template_p71o2bq",
+                templateParams,
+                "WNKsKHM2pWy83-JW-"
+            )
+            .then(
+                (res: { text: string }) => {
+                    console.log(res.text);
+                    alert("Thank you for your message!");
+                    setName("");
+                    setEmail("");
+                    setMessage("");
+                    return;
+                },
+                (error: { text: string }) => {
+                    console.error("Failed to send email. Error: ", error.text);
+                    alert("That didn't work. Please try again.");
+                    return;
+                }
+            );
     };
 
     return (
@@ -136,7 +168,8 @@ const Contact = () => {
                 <div className="pt-2">
                     <button
                         type="submit"
-                        className="bg-white dark:bg-gray-700 h-auto rounded-[calc(8px)] border-1 border-transparent py-1 px-2"
+                        disabled={isButtonDisabled}
+                        className="bg-white dark:bg-gray-700 h-auto rounded-[calc(8px)] border-1 border-transparent py-1 px-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Submit
                     </button>
