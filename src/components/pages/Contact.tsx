@@ -16,10 +16,13 @@ const Contact = () => {
     const [isEmailInvalid, setIsEmailInvalid] = useState(false);
     const [isMessageInvalid, setIsMessageInvalid] = useState(false);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setIsButtonDisabled(!name || !email || !message || isEmailInvalid);
-    }, [name, email, message, isEmailInvalid]);
+        setIsButtonDisabled(
+            !name || !email || !message || isEmailInvalid || loading
+        );
+    }, [name, email, message, isEmailInvalid, loading]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,10 +69,12 @@ const Contact = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
         if (isNameInvalid || isEmailInvalid || isMessageInvalid) {
             alert("Please fill out the form correctly.");
         }
 
+        setLoading(true);
         const templateParams = {
             from_name: name,
             reply_to: email,
@@ -90,11 +95,13 @@ const Contact = () => {
                     setName("");
                     setEmail("");
                     setMessage("");
+                    setLoading(false);
                     return;
                 },
                 (error: { text: string }) => {
                     console.error("Failed to send email. Error: ", error.text);
                     alert("That didn't work. Please try again.");
+                    setLoading(false);
                     return;
                 }
             );
