@@ -2,27 +2,29 @@ import { validateEmail } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 
-enum InputName {
-    Name = "name",
-    Email = "email",
-    Message = "message",
-}
-
 const Contact = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-    const [isNameInvalid, setIsNameInvalid] = useState(false);
-    const [isEmailInvalid, setIsEmailInvalid] = useState(false);
-    const [isMessageInvalid, setIsMessageInvalid] = useState(false);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        message: "",
+    });
+    const [isFormValid, setIsFormValid] = useState({
+        name: false,
+        email: false,
+        message: false,
+    });
+    const [touched, setTouched] = useState({
+        name: false,
+        email: false,
+        message: false,
+    });
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setIsButtonDisabled(
-            !name || !email || !message || isEmailInvalid || loading
-        );
-    }, [name, email, message, isEmailInvalid, loading]);
+        const allFieldsValid = Object.values(isFormValid).every(Boolean);
+        setIsButtonDisabled(!allFieldsValid || loading);
+    }, [formData, isFormValid, loading]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,20 +32,8 @@ const Contact = () => {
         // Get the value and name of the input
         const { name, value } = e.target;
 
-        switch (name) {
-            case InputName.Name:
-                setName(value);
-                setIsNameInvalid(!value);
-                break;
-            case InputName.Email:
-                setEmail(value);
-                setIsEmailInvalid(!validateEmail(value));
-                break;
-            case InputName.Message:
-                setMessage(value);
-                setIsMessageInvalid(!value);
-                break;
-        }
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        setIsFormValid((prev) => ({ ...prev, [name]: true }));
     };
 
     const handleBlur = (
@@ -51,34 +41,31 @@ const Contact = () => {
     ) => {
         const { name, value } = e.target;
 
-        switch (name) {
-            case InputName.Email: {
-                setIsEmailInvalid(!validateEmail(value));
-                break;
-            }
-            case InputName.Name:
-                if (!value) setIsNameInvalid(true);
-                else setIsNameInvalid(false);
-                break;
-            case InputName.Message:
-                if (!value) setIsMessageInvalid(true);
-                else setIsMessageInvalid(false);
-                break;
+        setTouched((prev) => ({ ...prev, [name]: true }));
+        if (!value) {
+            setIsFormValid((prev) => ({ ...prev, [name]: false }));
+        } else if (name === "email") {
+            // Check if the email is valid
+            setIsFormValid((prev) => ({
+                ...prev,
+                [name]: validateEmail(value),
+            }));
         }
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (isNameInvalid || isEmailInvalid || isMessageInvalid) {
+        if (Object.values(isFormValid).some((isValid) => !isValid)) {
             alert("Please fill out the form correctly.");
+            return;
         }
 
         setLoading(true);
         const templateParams = {
-            from_name: name,
-            reply_to: email,
-            message: message,
+            from_name: formData.name,
+            reply_to: formData.email,
+            message: formData.message,
         };
 
         emailjs
@@ -92,9 +79,13 @@ const Contact = () => {
                 (res: { text: string }) => {
                     console.log(res.text);
                     alert("Thank you for your message!");
-                    setName("");
-                    setEmail("");
-                    setMessage("");
+                    setFormData({ name: "", email: "", message: "" });
+                    setIsFormValid({
+                        name: false,
+                        email: false,
+                        message: false,
+                    });
+                    setTouched({ name: false, email: false, message: false });
                     setLoading(false);
                     return;
                 },
@@ -116,7 +107,7 @@ const Contact = () => {
                         Name
                     </label>
                     <input
-                        value={name}
+                        value={formData.name}
                         name="name"
                         onChange={handleInputChange}
                         onBlur={handleBlur}
@@ -126,7 +117,7 @@ const Contact = () => {
                         placeholder="Your Name"
                     />
                     <p
-                        hidden={!isNameInvalid}
+                        hidden={isFormValid.name || !touched.name}
                         className="text-red-700 dark:text-red-500 text-sm pt-0.5"
                     >
                         Please enter a name.
@@ -137,7 +128,7 @@ const Contact = () => {
                         Email
                     </label>
                     <input
-                        value={email}
+                        value={formData.email}
                         name="email"
                         onChange={handleInputChange}
                         onBlur={handleBlur}
@@ -147,7 +138,7 @@ const Contact = () => {
                         placeholder="Email"
                     />
                     <p
-                        hidden={!isEmailInvalid}
+                        hidden={isFormValid.email || !touched.email}
                         className="text-red-700 dark:text-red-500 text-sm pt-0.5"
                     >
                         Please enter a valid email.
@@ -158,7 +149,7 @@ const Contact = () => {
                         Message
                     </label>
                     <textarea
-                        value={message}
+                        value={formData.message}
                         name="message"
                         onChange={handleInputChange}
                         onBlur={handleBlur}
@@ -166,7 +157,7 @@ const Contact = () => {
                         id="contact-message"
                     />
                     <p
-                        hidden={!isMessageInvalid}
+                        hidden={isFormValid.message || !touched.message}
                         className="text-red-700 dark:text-red-500 text-sm pt-0.5"
                     >
                         Please enter a message.
